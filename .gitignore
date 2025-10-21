@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Next.js
+.next/
+out/
+.vercel/
+
+# Amplify local (if used later)
+amplify/#current-cloud-backend/
+
+# Env
+.env
+.env.*
+
+

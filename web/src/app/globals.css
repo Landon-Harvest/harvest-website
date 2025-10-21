@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+:root {
+  /* Base surface colors */
+  --background: #ffffff;
+  --foreground: #0b1220;
+
+  /* Brand tokens (sampled from Logos/Color Scheme during UI build) */
+  --brand-primary: #0f3d2e; /* Deep Green */
+  --brand-accent: #a3e635; /* Accent Lime */
+  --neutral-900: #111315;
+  --neutral-700: #2b2f36;
+  --neutral-100: #f4f6f8;
+  --surface: #ffffff;
+  --border: #e5e7eb;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand: var(--brand-primary);
+  --color-accent: var(--brand-accent);
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-plex-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --surface: #0f1115;
+    --border: #1f2430;
+    /* Increase contrast for secondary text on dark backgrounds */
+    --neutral-700: #d1d5db;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  max-width: 1200px;
+}
+
+/* Animated background blobs for hero */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(60px);
+  opacity: 0.35;
+  will-change: transform;
+  mix-blend-mode: screen;
+}
+
+.hero-blob.a {
+  width: 55vw;
+  height: 55vw;
+  top: -15vh;
+  left: -10vw;
+  background: radial-gradient(closest-side, color(display-p3 0.06 0.24 0.18) 0%, transparent 60%);
+  animation: float-a 18s ease-in-out infinite;
+}
+
+.hero-blob.b {
+  width: 50vw;
+  height: 50vw;
+  bottom: -20vh;
+  right: -10vw;
+  background: radial-gradient(closest-side, color(display-p3 0.64 0.90 0.21) 0%, transparent 60%);
+  animation: float-b 22s ease-in-out infinite;
+}
+
+.hero-blob.c {
+  width: 40vw;
+  height: 40vw;
+  top: 10vh;
+  right: 20vw;
+  background: radial-gradient(closest-side, color(display-p3 0.08 0.09 0.11) 0%, transparent 60%);
+  opacity: 0.25;
+  animation: float-c 26s ease-in-out infinite;
+}
+
+@keyframes float-a {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(5%, -3%, 0) scale(1.06); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes float-b {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-4%, 4%, 0) scale(1.05); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes float-c {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(2%, -5%, 0) scale(1.04); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
