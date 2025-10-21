@@ -14,7 +14,7 @@ export default function Home() {
           Elevate Decisions with Modern Business Intelligence and AI
         </h1>
           <p className="md:col-span-5 md:col-start-1 text-lg md:text-xl text-[var(--neutral-700)] max-w-2xl">
-          Harvest Analytics helps teams turn data into outcomes—BI modernization, analytics engineering, data science, and ML—delivered with speed, clarity, and measurable impact.
+          Harvest Analytics helps teams turn data into outcomes—BI modernization, Analytics Engineering, Data Science, and ML—delivered with speed, clarity, and measurable impact.
         </p>
         <div className="md:col-span-5 md:col-start-1 flex items-center gap-3">
           <Link
