@@ -4,19 +4,20 @@ import { DataVisualizationBackground } from "@/components/DataVisualizationBackg
 export default function Home() {
   return (
     <section className="grid gap-10">
-      <div className="relative rounded-xl min-h-[520px]">
+      {/* full-bleed hero so text can align to far-left */}
+      <div className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] min-h-[560px]">
         {/* Background mounted outside text container so it isn't clipped */}
         <div className="absolute inset-0 -z-10 pointer-events-none">
           <DataVisualizationBackground />
         </div>
-        <div className="relative grid gap-6 px-6 py-10 md:py-16 md:pl-6 md:pr-24 md:grid-cols-12 items-center">
-          <h1 className="md:col-span-5 md:col-start-1 text-4xl md:text-6xl font-bold tracking-tight" style={{ fontFamily: "var(--font-sora)" }}>
+        <div className="relative z-10 grid gap-6 px-4 md:px-8 py-12 md:py-20 md:grid-cols-12 items-center">
+          <h1 className="text-center md:col-span-8 md:col-start-3 text-4xl md:text-6xl font-bold tracking-tight" style={{ fontFamily: "var(--font-sora)" }}>
           Elevate Decisions with Modern Business Intelligence and AI
         </h1>
-          <p className="md:col-span-5 md:col-start-1 text-lg md:text-xl text-[var(--neutral-700)] max-w-2xl">
+          <p className="text-center md:col-span-8 md:col-start-3 text-lg md:text-xl text-[var(--neutral-700)] max-w-3xl mx-auto">
           Harvest Analytics helps teams turn data into outcomes—BI modernization, Analytics Engineering, Data Science, and ML—delivered with speed, clarity, and measurable impact.
         </p>
-        <div className="md:col-span-5 md:col-start-1 flex items-center gap-3">
+        <div className="md:col-span-8 md:col-start-3 flex items-center justify-center gap-3">
           <Link
             href="/contact"
             className="inline-flex items-center rounded-md bg-[var(--brand-accent)] text-black px-5 py-3 text-sm font-medium hover:opacity-90"

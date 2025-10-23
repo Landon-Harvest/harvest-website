@@ -44,7 +44,7 @@ export function DataVisualizationBackground() {
       <div className="absolute bottom-1/6 right-[10%] w-[26rem] h-[26rem] bg-teal-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }} />
 
       {/* 3D panels (nudged toward center-right on desktop) */}
-      <div className="absolute inset-0 flex items-center justify-center md:justify-end pr-0 md:pr-[10%]" style={{ perspective: "1000px" }}>
+      <div className="absolute inset-0 flex items-center justify-end pr-[4%] md:pr-[12%]" style={{ perspective: "1000px" }}>
         <ChartPanel delay={0.2} rotation="" position="z-10">
           <div className="w-48 h-48 bg-gradient-to-br from-cyan-500/20 to-teal-600/20 backdrop-blur-md border-2 border-cyan-400/40 rounded-2xl flex items-center justify-center shadow-2xl shadow-cyan-500/50">
             <div className="w-24 h-24 bg-gradient-to-br from-cyan-400 to-teal-400 rounded-full flex items-center justify-center">
