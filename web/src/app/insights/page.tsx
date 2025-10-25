@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { createClient } from '@supabase/supabase-js';
 import InsightsHeader from "@/components/InsightsHeader";
 import { DashboardHeader } from "@/components/dashboard/DashboardHeader";
+import { DataPreviewModal } from "@/components/dashboard/DataPreviewModal";
 import { KPICard } from "@/components/dashboard/KPICard";
 import { RevenueChart } from "@/components/dashboard/RevenueChart";
 import { OrdersChart } from "@/components/dashboard/OrdersChart";
@@ -35,6 +36,12 @@ export default function InsightsPage() {
   const [availableCategories, setAvailableCategories] = useState<string[]>([]);
   const [availableRegions, setAvailableRegions] = useState<string[]>([]);
   const [availableYears, setAvailableYears] = useState<string[]>([]);
+  
+  // Modal state for drill-down
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalData, setModalData] = useState<Record<string, unknown>[]>([]);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalColumns, setModalColumns] = useState<string[]>([]);
 
   // Fetch raw data on mount
   useEffect(() => {
@@ -408,6 +415,75 @@ export default function InsightsPage() {
     return selectedYear === 'all' ? 'All Years' : selectedYear;
   };
 
+  // Drill-down handler for charts
+  const handleChartClick = (date: string) => {
+    console.log('Chart clicked for date:', date);
+    
+    // Helper to parse date
+    const parseOrderDate = (dateStr: string): Date | null => {
+      try {
+        const [month, day, year] = dateStr.split('/');
+        const fullYear = year.length === 2 ? `20${year}` : year;
+        return new Date(`${fullYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
+      } catch {
+        return null;
+      }
+    };
+
+    // Filter raw data for the clicked month
+    const filtered = rawData.filter((row: Record<string, unknown>) => {
+      const orderDate = row['Order Date'] as string;
+      if (!orderDate) return false;
+      
+      try {
+        const [month, , year] = orderDate.split('/');
+        const fullYear = year.length === 2 ? `20${year}` : year;
+        const rowDate = `${fullYear}-${month.padStart(2, '0')}`;
+        
+        // Apply year filter if set
+        if (selectedYear !== 'all' && fullYear !== selectedYear) return false;
+        
+        // Apply category filter
+        if (selectedCategory !== 'all' && row.Category !== selectedCategory) return false;
+        
+        // Apply region filter
+        if (selectedRegion !== 'all' && row.Region !== selectedRegion) return false;
+        
+        return rowDate === date;
+      } catch {
+        return false;
+      }
+    });
+
+    if (filtered.length === 0) {
+      alert('No data found for this period');
+      return;
+    }
+
+    // Define available columns
+    const columns = [
+      'Order Date',
+      'Ship Date',
+      'Product Name',
+      'Category',
+      'Sub-Category',
+      'Region',
+      'City',
+      'State',
+      'Customer Name',
+      'Segment',
+      'Sales',
+      'Quantity',
+      'Discount',
+      'Profit'
+    ];
+
+    setModalData(filtered);
+    setModalTitle(`Orders for ${date}`);
+    setModalColumns(columns);
+    setModalOpen(true);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">
@@ -549,8 +625,8 @@ export default function InsightsPage() {
 
         {/* Charts Row 1: Revenue & Orders */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-          <RevenueChart data={timeSeries} />
-          <OrdersChart data={timeSeries} />
+          <RevenueChart data={timeSeries} onDataPointClick={handleChartClick} />
+          <OrdersChart data={timeSeries} onDataPointClick={handleChartClick} />
         </div>
 
         {/* Charts Row 2: Category & Profit Margin */}
@@ -574,6 +650,15 @@ export default function InsightsPage() {
           </div>
         </div>
       </div>
+
+      {/* Data Preview Modal */}
+      <DataPreviewModal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        data={modalData}
+        title={modalTitle}
+        availableColumns={modalColumns}
+      />
     </div>
   );
 }

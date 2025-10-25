@@ -3,12 +3,22 @@ import { Card } from "@/components/ui/card";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { TimeSeriesData } from "@/types/dashboard";
 
-export function OrdersChart({ data }: { data: TimeSeriesData[] }) {
+interface OrdersChartProps {
+  data: TimeSeriesData[];
+  onDataPointClick?: (date: string) => void;
+}
+
+export function OrdersChart({ data, onDataPointClick }: OrdersChartProps) {
+  const handleClick = (data: any) => {
+    if (data && data.activeLabel && onDataPointClick) {
+      onDataPointClick(data.activeLabel);
+    }
+  };
   return (
     <Card className="p-6 bg-slate-800/50 backdrop-blur border-slate-700">
       <h3 className="mb-4 text-lg font-semibold text-[#14B8A6]">Order Volume</h3>
       <ResponsiveContainer width="100%" height={300}>
-        <AreaChart data={data}>
+        <AreaChart data={data} onClick={handleClick}>
           <defs>
             <linearGradient id="colorOrders" x1="0" y1="0" x2="0" y2="1">
               <stop offset="5%" stopColor="#06B6D4" stopOpacity={0.8}/>
@@ -33,6 +43,7 @@ export function OrdersChart({ data }: { data: TimeSeriesData[] }) {
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.5)',
               color: '#fff'
             }}
+            cursor={{ stroke: '#06B6D4', strokeWidth: 2 }}
           />
           <Legend />
           <Area 
@@ -43,9 +54,15 @@ export function OrdersChart({ data }: { data: TimeSeriesData[] }) {
             fillOpacity={1}
             fill="url(#colorOrders)"
             name="Orders"
+            cursor="pointer"
           />
         </AreaChart>
       </ResponsiveContainer>
+      {onDataPointClick && (
+        <p className="text-xs text-gray-500 mt-2 text-center">
+          💡 Click on any data point to view details
+        </p>
+      )}
     </Card>
   );
 }

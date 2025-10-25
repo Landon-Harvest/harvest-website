@@ -3,12 +3,22 @@ import { Card } from "@/components/ui/card";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { TimeSeriesData } from "@/types/dashboard";
 
-export function RevenueChart({ data }: { data: TimeSeriesData[] }) {
+interface RevenueChartProps {
+  data: TimeSeriesData[];
+  onDataPointClick?: (date: string) => void;
+}
+
+export function RevenueChart({ data, onDataPointClick }: RevenueChartProps) {
+  const handleClick = (data: any) => {
+    if (data && data.activeLabel && onDataPointClick) {
+      onDataPointClick(data.activeLabel);
+    }
+  };
   return (
     <Card className="p-6 bg-slate-800/50 backdrop-blur border-slate-700">
       <h3 className="mb-4 text-lg font-semibold text-[#14B8A6]">Revenue Trend</h3>
       <ResponsiveContainer width="100%" height={300}>
-        <LineChart data={data}>
+        <LineChart data={data} onClick={handleClick}>
           <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
           <XAxis 
             dataKey="date" 
@@ -27,6 +37,7 @@ export function RevenueChart({ data }: { data: TimeSeriesData[] }) {
               boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.5)',
               color: '#fff'
             }}
+            cursor={{ stroke: '#14B8A6', strokeWidth: 2 }}
           />
           <Legend />
           <Line 
@@ -35,11 +46,16 @@ export function RevenueChart({ data }: { data: TimeSeriesData[] }) {
             stroke="#14B8A6" 
             strokeWidth={3}
             name="Revenue"
-            dot={{ fill: '#14B8A6', strokeWidth: 2, r: 4 }}
-            activeDot={{ r: 6 }}
+            dot={{ fill: '#14B8A6', strokeWidth: 2, r: 4, cursor: 'pointer' }}
+            activeDot={{ r: 8, cursor: 'pointer' }}
           />
         </LineChart>
       </ResponsiveContainer>
+      {onDataPointClick && (
+        <p className="text-xs text-gray-500 mt-2 text-center">
+          💡 Click on any data point to view details
+        </p>
+      )}
     </Card>
   );
 }
