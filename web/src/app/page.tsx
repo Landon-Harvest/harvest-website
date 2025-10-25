@@ -24,7 +24,7 @@ export default function Home() {
           >
             Book a consultation
           </Link>
-          <Link href="/insights" className="text-sm underline text-[var(--neutral-700)] hover:text-[var(--brand-accent)]">
+          <Link href="/insights" className="inline-flex items-center rounded-md bg-[var(--brand-accent)] text-black px-5 py-3 text-sm font-medium hover:opacity-90">
             View insights dashboard
           </Link>
         </div>
