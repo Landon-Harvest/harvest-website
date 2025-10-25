@@ -418,17 +418,6 @@ export default function InsightsPage() {
   // Drill-down handler for charts
   const handleChartClick = (date: string) => {
     console.log('Chart clicked for date:', date);
-    
-    // Helper to parse date
-    const parseOrderDate = (dateStr: string): Date | null => {
-      try {
-        const [month, day, year] = dateStr.split('/');
-        const fullYear = year.length === 2 ? `20${year}` : year;
-        return new Date(`${fullYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
-      } catch {
-        return null;
-      }
-    };
 
     // Filter raw data for the clicked month
     const filtered = rawData.filter((row: Record<string, unknown>) => {

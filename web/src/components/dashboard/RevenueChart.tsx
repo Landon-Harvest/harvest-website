@@ -9,9 +9,9 @@ interface RevenueChartProps {
 }
 
 export function RevenueChart({ data, onDataPointClick }: RevenueChartProps) {
-  const handleClick = (data: any) => {
-    if (data && data.activeLabel && onDataPointClick) {
-      onDataPointClick(data.activeLabel);
+  const handleClick = (chartData: { activeLabel?: string } | null) => {
+    if (chartData && chartData.activeLabel && onDataPointClick) {
+      onDataPointClick(chartData.activeLabel);
     }
   };
   return (
