@@ -5,8 +5,6 @@ import Image from "next/image";
 const nav = [
   { href: "/services", label: "Services" },
   { href: "/industries", label: "Industries" },
-  { href: "/case-studies", label: "Case Studies" },
-  { href: "/about", label: "About" },
   { href: "/insights", label: "Insights" },
   { href: "/contact", label: "Contact" },
 ];

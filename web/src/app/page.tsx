@@ -24,8 +24,8 @@ export default function Home() {
           >
             Book a consultation
           </Link>
-          <Link href="/case-studies" className="text-sm underline">
-            See case studies
+          <Link href="/insights" className="text-sm underline text-[var(--neutral-700)] hover:text-[var(--brand-accent)]">
+            View insights dashboard
           </Link>
         </div>
         </div>
