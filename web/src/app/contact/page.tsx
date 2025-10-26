@@ -12,7 +12,7 @@ export default function ContactPage() {
     <section className="grid gap-8">
       <div className="grid gap-2">
         <h1 className="text-3xl md:text-4xl font-bold" style={{ fontFamily: "var(--font-sora)" }}>Contact</h1>
-        <p className="text-[var(--neutral-700)]">Let's discuss how we can help transform your data strategy.</p>
+        <p className="text-[var(--neutral-700)]">Let&apos;s discuss how we can help transform your data strategy.</p>
       </div>
 
       {/* Calendly Embed Section */}
@@ -55,7 +55,7 @@ export default function ContactPage() {
         <form className="grid gap-4 rounded-lg border border-[var(--border)] p-6 bg-[var(--surface)]">
           <div className="mb-2">
             <h3 className="text-lg font-semibold mb-1">Send us a message</h3>
-            <p className="text-sm text-[var(--neutral-700)]">We'll respond within 1–2 business days.</p>
+            <p className="text-sm text-[var(--neutral-700)]">We&apos;ll respond within 1–2 business days.</p>
           </div>
           
           <label className="grid gap-1 text-sm">
